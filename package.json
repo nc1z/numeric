@@ -13,6 +13,7 @@
         "start:debug": "nest start --debug --watch",
         "start:prod": "node dist/main",
         "lint": "lint-staged",
+        "db:dev": "docker compose up -d",
         "test": "jest --passWithNoTests",
         "test:watch": "jest --watch",
         "test:cov": "jest --coverage",
