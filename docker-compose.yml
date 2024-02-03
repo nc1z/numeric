@@ -1,6 +1,6 @@
 version: '3.8'
 services:
-    numeric_db:
+    dev_db:
         image: postgres:13
         ports:
             - 5432:5432
@@ -9,6 +9,6 @@ services:
             POSTGRES_PASSWORD: admin
             POSTGRES_DB: nest
         networks:
-            - numeric
+            - dev
 networks:
-    numeric:
+    dev:
