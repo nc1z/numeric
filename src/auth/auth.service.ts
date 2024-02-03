@@ -7,8 +7,24 @@ import { AuthDto } from './dto';
 export class AuthService {
     constructor(private prisma: PrismaService) {}
 
-    login(dto: AuthDto) {
-        return { data: dto };
+    async login(dto: AuthDto) {
+        const { email, password } = dto;
+        const user = await this.prisma.user.findUnique({
+            where: { email },
+        });
+
+        if (!user) {
+            throw new ForbiddenException('Invalid credentials');
+        }
+
+        const isMatch = await argon.verify(user.hash, password);
+
+        if (!isMatch) {
+            throw new ForbiddenException('Invalid credentials');
+        }
+
+        delete user.hash;
+        return user;
     }
 
     async register(dto: AuthDto) {
